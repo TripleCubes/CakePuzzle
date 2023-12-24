@@ -55,6 +55,8 @@ var _holding: = false:
 		_previous_pos = position
 		_previous_mouse_pos = get_global_mouse_position()
 
+		move_to_front()
+
 func _process(_delta):
 	if not _holding:
 		return
