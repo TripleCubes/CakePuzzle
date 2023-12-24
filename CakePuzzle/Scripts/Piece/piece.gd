@@ -40,3 +40,29 @@ var up_piece = null
 var down_piece = null
 var left_piece = null
 var right_piece = null
+
+
+
+var _previous_pos: Vector2
+var _previous_mouse_pos: Vector2
+
+var _holding: = false:
+	set(val):
+		if (_holding == val):
+			return
+		_holding = val
+		
+		_previous_pos = position
+		_previous_mouse_pos = get_global_mouse_position()
+
+func _process(_delta):
+	if not _holding:
+		return
+
+	position = _previous_pos + (get_global_mouse_position() - _previous_mouse_pos)
+
+func _on_button_down():
+	_holding = true
+
+func _on_button_up():
+	_holding = false

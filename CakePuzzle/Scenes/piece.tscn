@@ -1,9 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://ddycmei7kadnk"]
+[gd_scene load_steps=11 format=3 uid="uid://ddycmei7kadnk"]
 
 [ext_resource type="Shader" path="res://Shaders/piece.gdshader" id="1_1g31t"]
 [ext_resource type="Script" path="res://Scripts/Piece/piece.gd" id="1_657fp"]
 [ext_resource type="Texture2D" uid="uid://c518n4d5g8kgq" path="res://Assets/Sprites/double.png" id="2_wc3xg"]
 [ext_resource type="Script" path="res://Scripts/Piece/piece_sprite.gd" id="3_ngye2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y4sb6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kvct4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cbggm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pq60p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_laq4x"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ah5ir"]
 shader = ExtResource("1_1g31t")
@@ -17,6 +27,11 @@ shader_parameter/left_type = null
 shader_parameter/right_type = null
 
 [node name="Piece" type="Button"]
+theme_override_styles/normal = SubResource("StyleBoxEmpty_y4sb6")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kvct4")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_cbggm")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_pq60p")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_laq4x")
 script = ExtResource("1_657fp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -25,3 +40,6 @@ texture = ExtResource("2_wc3xg")
 centered = false
 offset = Vector2(-20, -20)
 script = ExtResource("3_ngye2")
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="button_up" from="." to="." method="_on_button_up"]

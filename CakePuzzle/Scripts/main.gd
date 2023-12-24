@@ -17,6 +17,7 @@ func _ready():
 			piece.piece_size = piece_size
 			piece.piece_offset = piece_offset
 			piece.position = piece_offset + Vector2(j * 3, i * 3)
+			piece.size = piece_size
 			piece_list[i].append(piece)
 
 			if j == 0 and i == 0:
