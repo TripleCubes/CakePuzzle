@@ -19,6 +19,7 @@ uniform int up_type;
 uniform int down_type;
 uniform int left_type;
 uniform int right_type;
+uniform bool height_draw;
 
 float get_circle_alpha(vec2 center, float r, vec2 pos) {
 	const float BORDER_SIZE = 1.0f;
@@ -189,8 +190,15 @@ float get_a(vec2 pos) {
 
 void fragment() {
 	vec2 pos = vec2(UV.x * sprite_size.x - padding.x, UV.y * sprite_size.y - padding.y);
-	vec4 result = texture(TEXTURE, UV + vec2((offset.x-padding.x)/sprite_size.x, (offset.y-padding.y)/sprite_size.y));
-	result.a = get_a(pos);
+	vec4 result;
+
+	if (!height_draw) {
+		result = texture(TEXTURE, UV + vec2((offset.x-padding.x)/sprite_size.x, (offset.y-padding.y)/sprite_size.y));
+		result.a = get_a(pos);
+	} else {
+		result = vec4(0.63f, 0.79f, 0.59f, 0.0f);
+		result.a = get_a(pos + vec2(0.0f, -3.0f));
+	}
 	
 	COLOR = result;
 }

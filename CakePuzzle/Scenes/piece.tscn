@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://ddycmei7kadnk"]
+[gd_scene load_steps=13 format=3 uid="uid://ddycmei7kadnk"]
 
 [ext_resource type="Shader" path="res://Shaders/piece.gdshader" id="1_1g31t"]
 [ext_resource type="Script" path="res://Scripts/Piece/piece.gd" id="1_657fp"]
 [ext_resource type="Texture2D" uid="uid://c518n4d5g8kgq" path="res://Assets/Sprites/double.png" id="2_wc3xg"]
 [ext_resource type="Script" path="res://Scripts/Piece/piece_sprite.gd" id="3_ngye2"]
+[ext_resource type="Script" path="res://Scripts/Piece/piece_height.gd" id="5_eesca"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y4sb6"]
 
@@ -15,6 +16,18 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_laq4x"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sgdxo"]
+shader = ExtResource("1_1g31t")
+shader_parameter/sprite_size = null
+shader_parameter/piece_size = Vector2(100, 100)
+shader_parameter/offset = Vector2(500, 500)
+shader_parameter/padding = Vector2(20, 20)
+shader_parameter/up_type = null
+shader_parameter/down_type = null
+shader_parameter/left_type = null
+shader_parameter/right_type = null
+shader_parameter/height_draw = null
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ah5ir"]
 shader = ExtResource("1_1g31t")
 shader_parameter/sprite_size = null
@@ -25,6 +38,7 @@ shader_parameter/up_type = null
 shader_parameter/down_type = null
 shader_parameter/left_type = null
 shader_parameter/right_type = null
+shader_parameter/height_draw = null
 
 [node name="Piece" type="Button"]
 theme_override_styles/normal = SubResource("StyleBoxEmpty_y4sb6")
@@ -33,6 +47,16 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_cbggm")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_pq60p")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_laq4x")
 script = ExtResource("1_657fp")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_sgdxo")
+layout_mode = 0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 80.0
+offset_bottom = 80.0
+mouse_filter = 2
+script = ExtResource("5_eesca")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ah5ir")
