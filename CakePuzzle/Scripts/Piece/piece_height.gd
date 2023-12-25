@@ -13,3 +13,11 @@ func _ready():
 	material.set_shader_parameter("left_type", _sprite.left_type)
 	material.set_shader_parameter("right_type", _sprite.right_type)
 	material.set_shader_parameter("height_draw", true)
+
+func update() -> void:
+	if _sprite == null:
+		return
+	material.set_shader_parameter("up_type", _sprite.up_type)
+	material.set_shader_parameter("down_type", _sprite.down_type)
+	material.set_shader_parameter("left_type", _sprite.left_type)
+	material.set_shader_parameter("right_type", _sprite.right_type)

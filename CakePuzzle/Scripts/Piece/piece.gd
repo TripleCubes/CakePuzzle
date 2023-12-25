@@ -19,24 +19,32 @@ var piece_offset: Vector2:
 var up_type: int:
 	set(val):
 		$Sprite2D.up_type = val
+		$Sprite2D.update()
+		$ColorRect.update()
 	get:
 		return $Sprite2D.up_type
 
 var down_type: int:
 	set(val):
 		$Sprite2D.down_type = val
+		$Sprite2D.update()
+		$ColorRect.update()
 	get:
 		return $Sprite2D.down_type
 
 var left_type: int:
 	set(val):
 		$Sprite2D.left_type = val
+		$Sprite2D.update()
+		$ColorRect.update()
 	get:
 		return $Sprite2D.left_type
 
 var right_type: int:
 	set(val):
 		$Sprite2D.right_type = val
+		$Sprite2D.update()
+		$ColorRect.update()
 	get:
 		return $Sprite2D.right_type
 
@@ -66,7 +74,7 @@ var _holding: = false:
 		_previous_pos = position
 		_previous_mouse_pos = get_global_mouse_position()
 
-		move_to_front()
+		_put_connected_pieces_on_top(self)
 
 func _process(_delta):
 	_move_connected_pieces()
@@ -77,14 +85,14 @@ func _move_connected_pieces():
 
 	_flood(self, func(data):
 		data.piece.position = _previous_pos + (get_global_mouse_position() - _previous_mouse_pos) \
-									+ Vector2((data.index.x - index.x) * piece_size.x, \
-												(data.index.y - index.y) * piece_size.y)
+									+ Vector2((data.index.x - index.x) * (piece_size.x - 0.2), \
+												(data.index.y - index.y) * (piece_size.y - 0.2))
 	)
 
 func _move_connected_pieces_2(first_piece, pos: Vector2) -> void:
 	_flood(first_piece, func(data):
-		data.piece.position = pos + Vector2((data.index.x - first_piece.index.x) * piece_size.x, \
-												(data.index.y - first_piece.index.y) * piece_size.y)
+		data.piece.position = pos + Vector2((data.index.x - first_piece.index.x) * (piece_size.x - 0.2), \
+												(data.index.y - first_piece.index.y) * (piece_size.y - 0.2))
 	)
 
 func _flood(first_piece, f: Callable) -> void:
@@ -130,6 +138,33 @@ func _flood(first_piece, f: Callable) -> void:
 
 		f.call(data)
 
+func _get_connect_piece_data_list(first_piece) -> Array:
+	var list: = []
+
+	_flood(first_piece, func(data):
+		list.append(data)
+	)
+
+	list.sort_custom(func(a, b):
+		if a.index.y < b.index.y:
+			return true
+
+		if a.index.y > b.index.y:
+			return false
+		
+		if a.index.x < b.index.x:
+			return true
+
+		return false
+	)
+
+	return list
+
+func _put_connected_pieces_on_top(first_piece) -> void:
+	var list: = _get_connect_piece_data_list(first_piece)
+	for data in list:
+		data.piece.move_to_front()
+
 func _on_button_down():
 	_holding = true
 
@@ -146,11 +181,19 @@ func _check_connect() -> void:
 				p.up_connected = true
 				p.up_piece.down_connected = true
 
+				p.up_type = PieceConsts.TYPE_FLAT
+				p.up_piece.down_type = PieceConsts.TYPE_FLAT
+				_put_connected_pieces_on_top(p)
+
 		if not p.down_connected and p.down_piece != null:
 			if _in_range(p.down_piece.position, p.position + Vector2(0, p.piece_size.y), Vector2(10, 10)):
 				_move_connected_pieces_2(p, p.down_piece.position + Vector2(0, -piece_size.y))
 				p.down_connected = true
 				p.down_piece.up_connected = true
+
+				p.down_type = PieceConsts.TYPE_FLAT
+				p.down_piece.up_type = PieceConsts.TYPE_FLAT
+				_put_connected_pieces_on_top(p)
 
 		if not p.left_connected and p.left_piece != null:
 			if _in_range(p.left_piece.position, p.position + Vector2(-p.piece_size.x, 0), Vector2(10, 10)):
@@ -158,11 +201,19 @@ func _check_connect() -> void:
 				p.left_connected = true
 				p.left_piece.right_connected = true
 
+				p.left_type = PieceConsts.TYPE_FLAT
+				p.left_piece.right_type = PieceConsts.TYPE_FLAT
+				_put_connected_pieces_on_top(p)
+
 		if not p.right_connected and p.right_piece != null:
 			if _in_range(p.right_piece.position, p.position + Vector2(p.piece_size.x, 0), Vector2(10, 10)):
 				_move_connected_pieces_2(p, p.right_piece.position + Vector2(-piece_size.x, 0))
 				p.right_connected = true
 				p.right_piece.left_connected = true
+
+				p.right_type = PieceConsts.TYPE_FLAT
+				p.right_piece.left_type = PieceConsts.TYPE_FLAT
+				_put_connected_pieces_on_top(p)
 	)
 
 func _in_range(pos1: Vector2, pos2: Vector2, r: Vector2) -> bool:

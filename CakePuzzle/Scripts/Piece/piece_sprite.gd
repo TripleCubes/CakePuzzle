@@ -18,3 +18,9 @@ func _ready():
 	material.set_shader_parameter("left_type", left_type)
 	material.set_shader_parameter("right_type", right_type)
 	material.set_shader_parameter("height_draw", false)
+
+func update():
+	material.set_shader_parameter("up_type", up_type)
+	material.set_shader_parameter("down_type", down_type)
+	material.set_shader_parameter("left_type", left_type)
+	material.set_shader_parameter("right_type", right_type)
