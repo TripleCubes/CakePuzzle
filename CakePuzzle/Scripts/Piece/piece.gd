@@ -94,6 +94,16 @@ func _move_connected_pieces():
 		return
 
 	var mouse_pos: = get_global_mouse_position()
+
+	if mouse_pos.x < piece_size.x/2:
+		mouse_pos.x = piece_size.x/2
+	if mouse_pos.y < piece_size.y/2:
+		mouse_pos.y = piece_size.y/2
+	if mouse_pos.x > 1000 - piece_size.x/2:
+		mouse_pos.x = 1000 - piece_size.x/2
+	if mouse_pos.y > 600 - piece_size.y/2:
+		mouse_pos.y = 600 - piece_size.y/2
+	
 	_flood(self, func(data):
 		data.piece.position = _previous_pos + (mouse_pos - _previous_mouse_pos) \
 									+ Vector2((data.index.x - index.x) * (piece_size.x - 0), \
