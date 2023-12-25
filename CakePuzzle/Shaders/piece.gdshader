@@ -8,7 +8,7 @@ const int TYPE_ROUND_TOP_RIGHT = 4;
 const int TYPE_ROUND_BOTTOM_LEFT = 5;
 const int TYPE_ROUND_BOTTOM_RIGHT = 6;
 
-const float CIRCLE_RADIUS = 10.0f;
+uniform float CIRCLE_RADIUS = 10.0f;
 const float CORNER_CIRCLE_RADIUS = 10.0f;
 
 uniform vec2 sprite_size;

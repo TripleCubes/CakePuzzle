@@ -1,6 +1,6 @@
 extends Button
 
-var TextureSize: Vector2:
+var texture_size: Vector2:
 	get:
 		return Vector2($Sprite2D.texture.get_width(), $Sprite2D.texture.get_height())
 
@@ -15,6 +15,12 @@ var piece_offset: Vector2:
 		$Sprite2D.piece_offset = val
 	get:
 		return $Sprite2D.piece_offset
+
+var circle_radius: float:
+	set(val):
+		$Sprite2D.circle_radius = val
+	get:
+		return $Sprite2D.circle_radius
 
 var up_type: int:
 	set(val):
@@ -86,14 +92,14 @@ func _move_connected_pieces():
 	var mouse_pos: = get_global_mouse_position()
 	_flood(self, func(data):
 		data.piece.position = _previous_pos + (mouse_pos - _previous_mouse_pos) \
-									+ Vector2((data.index.x - index.x) * (piece_size.x - 0.2), \
-												(data.index.y - index.y) * (piece_size.y - 0.2))
+									+ Vector2((data.index.x - index.x) * (piece_size.x - 0), \
+												(data.index.y - index.y) * (piece_size.y - 0))
 	)
 
 func _move_connected_pieces_2(first_piece, pos: Vector2) -> void:
 	_flood(first_piece, func(data):
-		data.piece.position = pos + Vector2((data.index.x - first_piece.index.x) * (piece_size.x - 0.2), \
-												(data.index.y - first_piece.index.y) * (piece_size.y - 0.2))
+		data.piece.position = pos + Vector2((data.index.x - first_piece.index.x) * (piece_size.x - 0), \
+												(data.index.y - first_piece.index.y) * (piece_size.y - 0))
 	)
 
 func _flood(first_piece, f: Callable) -> void:

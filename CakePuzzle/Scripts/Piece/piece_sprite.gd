@@ -6,6 +6,7 @@ var up_type: int = 0
 var down_type: int = 0
 var left_type: int = 0
 var right_type: int = 0
+var circle_radius: float = 0
 
 func _ready():
 	material = material.duplicate()
@@ -17,6 +18,7 @@ func _ready():
 	material.set_shader_parameter("down_type", down_type)
 	material.set_shader_parameter("left_type", left_type)
 	material.set_shader_parameter("right_type", right_type)
+	material.set_shader_parameter("CIRCLE_RADIUS", circle_radius)
 	material.set_shader_parameter("height_draw", false)
 
 func update():

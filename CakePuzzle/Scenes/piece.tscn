@@ -18,6 +18,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sgdxo"]
 shader = ExtResource("1_1g31t")
+shader_parameter/CIRCLE_RADIUS = 10.0
 shader_parameter/sprite_size = null
 shader_parameter/piece_size = Vector2(100, 100)
 shader_parameter/offset = Vector2(500, 500)
@@ -30,6 +31,7 @@ shader_parameter/height_draw = null
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ah5ir"]
 shader = ExtResource("1_1g31t")
+shader_parameter/CIRCLE_RADIUS = 10.0
 shader_parameter/sprite_size = null
 shader_parameter/piece_size = Vector2(100, 100)
 shader_parameter/offset = Vector2(500, 500)
