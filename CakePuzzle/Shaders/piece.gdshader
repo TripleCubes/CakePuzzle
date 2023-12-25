@@ -73,7 +73,7 @@ float get_a_inner(vec2 pos, vec2 uv2) {
 		}
 	}
 
-	if (uv2.x < uv2.y && uv2.x > 1.0f - uv2.y) {
+	if (uv2.x <= uv2.y && uv2.x >= 1.0f - uv2.y) {
 		if (down_type == TYPE_IN) {
 			vec2 circle_center = vec2(piece_size.x / 2.0f, piece_size.y);
 			a = 1.0f - get_circle_alpha(circle_center, CIRCLE_RADIUS, pos);
@@ -94,7 +94,7 @@ float get_a_inner(vec2 pos, vec2 uv2) {
 		}
 	}
 
-	if (uv2.x < uv2.y && uv2.x < 1.0f - uv2.y) {
+	if (uv2.x <= uv2.y && uv2.x < 1.0f - uv2.y) {
 		if (left_type == TYPE_IN) {
 			vec2 circle_center = vec2(0.0f, piece_size.y/2.0f);
 			a = 1.0f - get_circle_alpha(circle_center, CIRCLE_RADIUS, pos);
@@ -115,7 +115,7 @@ float get_a_inner(vec2 pos, vec2 uv2) {
 		}
 	}
 
-	if (uv2.y < uv2.x && uv2.y > 1.0f - uv2.x) {
+	if (uv2.y < uv2.x && uv2.y >= 1.0f - uv2.x) {
 		if (right_type == TYPE_IN) {
 			vec2 circle_center = vec2(piece_size.x, piece_size.y/2.0f);
 			a = 1.0f - get_circle_alpha(circle_center, CIRCLE_RADIUS, pos);
@@ -149,21 +149,21 @@ float get_a_outer(vec2 pos, vec2 uv2) {
 		}
 	}
 
-	if (uv2.x < uv2.y && uv2.x > 1.0f - uv2.y) {
+	if (uv2.x <= uv2.y && uv2.x >= 1.0f - uv2.y) {
 		if (down_type == TYPE_OUT) {
 			vec2 circle_center = vec2(piece_size.x / 2.0f, piece_size.y);
 			a = get_circle_alpha(circle_center, CIRCLE_RADIUS, pos);
 		}
 	}
 
-	if (uv2.x < uv2.y && uv2.x < 1.0f - uv2.y) {
+	if (uv2.x <= uv2.y && uv2.x < 1.0f - uv2.y) {
 		if (left_type == TYPE_OUT) {
 			vec2 circle_center = vec2(0.0f, piece_size.y/2.0f);
 			a = get_circle_alpha(circle_center, CIRCLE_RADIUS, pos);
 		}
 	}
 
-	if (uv2.y < uv2.x && uv2.y > 1.0f - uv2.x) {
+	if (uv2.y < uv2.x && uv2.y >= 1.0f - uv2.x) {
 		if (right_type == TYPE_OUT) {
 			vec2 circle_center = vec2(piece_size.x, piece_size.y/2.0f);
 			a = get_circle_alpha(circle_center, CIRCLE_RADIUS, pos);
@@ -192,12 +192,16 @@ void fragment() {
 	vec2 pos = vec2(UV.x * sprite_size.x - padding.x, UV.y * sprite_size.y - padding.y);
 	vec4 result;
 
-	if (!height_draw) {
-		result = texture(TEXTURE, UV + vec2((offset.x-padding.x)/sprite_size.x, (offset.y-padding.y)/sprite_size.y));
-		result.a = get_a(pos);
+	if (pos.x <= sprite_size.x + padding.x && pos.y <= sprite_size.y + padding.y) {
+		if (!height_draw) {
+			result = texture(TEXTURE, UV + vec2((offset.x-padding.x)/sprite_size.x, (offset.y-padding.y)/sprite_size.y));
+			result.a = get_a(pos);
+		} else {
+			result = vec4(0.63f, 0.79f, 0.59f, 0.0f);
+			result.a = get_a(pos + vec2(0.0f, -3.0f));
+		}
 	} else {
-		result = vec4(0.63f, 0.79f, 0.59f, 0.0f);
-		result.a = get_a(pos + vec2(0.0f, -3.0f));
+		discard;
 	}
 	
 	COLOR = result;
