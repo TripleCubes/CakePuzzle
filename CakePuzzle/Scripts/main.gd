@@ -3,8 +3,8 @@ extends Node2D
 var piece_list = []
 
 func _ready():
-	var divide_vec = Vector2(12, 12)
-	var circle_radius: float = 7
+	var divide_vec = Vector2(8, 8)
+	var circle_radius: float = 10
 
 	for i in divide_vec.y:
 		piece_list.append([])

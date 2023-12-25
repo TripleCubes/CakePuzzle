@@ -24,3 +24,4 @@ PieceConsts="*res://Scripts/Piece/piece_consts.gd"
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(1, 0.952941, 0.745098, 1)
