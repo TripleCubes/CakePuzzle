@@ -1,5 +1,9 @@
 Art and codes by TripleCubes
 
+Written in 4 days for Mini Jam 148: Connections
+
+Limitation: You are immobile
+
 Created using Godot engine, version 4.1.1
 
 # LICENSE
