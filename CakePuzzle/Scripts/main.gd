@@ -1,11 +1,40 @@
 extends Node2D
 
 var piece_list = []
+var texture_list = [GV.texture_0, GV.texture_1]
+var divide_vec_list = [Vector2(8, 8), Vector2(12, 12)]
+var circle_radius_list = [10, 7]
 
 func _ready():
-	var divide_vec = Vector2(8, 8)
-	var circle_radius: float = 10
+	pass
 
+func _process(_delta):
+	if Input.is_action_just_pressed("KEY_SPACE"):
+		$ShuffleButton.hide()
+	if Input.is_action_just_released("KEY_SPACE"):
+		$ShuffleButton.show()
+
+func _on_shuffle_button_pressed():
+	piece_list.clear()
+
+	for piece in $Pieces.get_children():
+		piece.queue_free()
+
+	var dice = randi_range(0, 1)
+	var dice2 = randi_range(0, 1)
+	_set_up(texture_list[dice], divide_vec_list[dice2], circle_radius_list[dice2])
+
+func _rand_pos(piece_size: Vector2) -> Vector2:
+	var pos: = Vector2(500, 300)
+
+	while (pos.x < 1000 - 150 and pos.x > 100 and pos.y < 600 - 100 and pos.y > 50) \
+	or (pos.x > 1000 - piece_size.x or pos.y > 600 - piece_size.y):
+		pos.x = randf_range(0, 1000)
+		pos.y = randf_range(0, 600)
+	
+	return pos
+
+func _set_up(texture: Texture2D, divide_vec: Vector2, circle_radius: float) -> void:
 	for i in divide_vec.y:
 		piece_list.append([])
 
@@ -15,12 +44,13 @@ func _ready():
 
 			var piece_size = Vector2(piece.texture_size.x / divide_vec.x, piece.texture_size.y / divide_vec.y)
 			var piece_offset = Vector2(piece_size.x * j, piece_size.y * i)
+			piece.texture = texture
 			piece.grid_size = divide_vec
 			piece.index = Vector2(j, i)
 			piece.piece_size = piece_size
 			piece.piece_offset = piece_offset
 			piece.circle_radius = circle_radius
-			piece.position = piece_offset + Vector2(j * 20, i * 20)
+			piece.position = _rand_pos(piece_size)
 			piece.size = piece_size
 			piece_list[i].append(piece)
 

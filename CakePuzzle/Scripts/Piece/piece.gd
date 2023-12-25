@@ -1,5 +1,9 @@
 extends Button
 
+var texture: Texture2D:
+	set(val):
+		$Sprite2D.texture = val
+
 var texture_size: Vector2:
 	get:
 		return Vector2($Sprite2D.texture.get_width(), $Sprite2D.texture.get_height())

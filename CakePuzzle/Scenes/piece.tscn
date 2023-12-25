@@ -43,6 +43,7 @@ shader_parameter/right_type = null
 shader_parameter/height_draw = null
 
 [node name="Piece" type="Button"]
+focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_3r65l")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_kvct4")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_cbggm")
