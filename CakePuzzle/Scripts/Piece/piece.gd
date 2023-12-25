@@ -83,8 +83,9 @@ func _move_connected_pieces():
 	if not _holding:
 		return
 
+	var mouse_pos: = get_global_mouse_position()
 	_flood(self, func(data):
-		data.piece.position = _previous_pos + (get_global_mouse_position() - _previous_mouse_pos) \
+		data.piece.position = _previous_pos + (mouse_pos - _previous_mouse_pos) \
 									+ Vector2((data.index.x - index.x) * (piece_size.x - 0.2), \
 												(data.index.y - index.y) * (piece_size.y - 0.2))
 	)
@@ -176,7 +177,7 @@ func _check_connect() -> void:
 	_flood(self, func(data):
 		var p = data.piece
 		if not p.up_connected and p.up_piece != null:
-			if _in_range(p.up_piece.position, p.position + Vector2(0, -p.piece_size.y), Vector2(10, 10)):
+			if _in_range(p.up_piece.position, p.position + Vector2(0, -p.piece_size.y), Vector2(5, 5)):
 				_move_connected_pieces_2(p, p.up_piece.position + Vector2(0, piece_size.y))
 				p.up_connected = true
 				p.up_piece.down_connected = true
@@ -186,7 +187,7 @@ func _check_connect() -> void:
 				_put_connected_pieces_on_top(p)
 
 		if not p.down_connected and p.down_piece != null:
-			if _in_range(p.down_piece.position, p.position + Vector2(0, p.piece_size.y), Vector2(10, 10)):
+			if _in_range(p.down_piece.position, p.position + Vector2(0, p.piece_size.y), Vector2(5, 5)):
 				_move_connected_pieces_2(p, p.down_piece.position + Vector2(0, -piece_size.y))
 				p.down_connected = true
 				p.down_piece.up_connected = true
@@ -196,7 +197,7 @@ func _check_connect() -> void:
 				_put_connected_pieces_on_top(p)
 
 		if not p.left_connected and p.left_piece != null:
-			if _in_range(p.left_piece.position, p.position + Vector2(-p.piece_size.x, 0), Vector2(10, 10)):
+			if _in_range(p.left_piece.position, p.position + Vector2(-p.piece_size.x, 0), Vector2(5, 5)):
 				_move_connected_pieces_2(p, p.left_piece.position + Vector2(piece_size.x, 0))
 				p.left_connected = true
 				p.left_piece.right_connected = true
@@ -206,7 +207,7 @@ func _check_connect() -> void:
 				_put_connected_pieces_on_top(p)
 
 		if not p.right_connected and p.right_piece != null:
-			if _in_range(p.right_piece.position, p.position + Vector2(p.piece_size.x, 0), Vector2(10, 10)):
+			if _in_range(p.right_piece.position, p.position + Vector2(p.piece_size.x, 0), Vector2(5, 5)):
 				_move_connected_pieces_2(p, p.right_piece.position + Vector2(-piece_size.x, 0))
 				p.right_connected = true
 				p.right_piece.left_connected = true
