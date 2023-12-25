@@ -14,9 +14,11 @@ func _ready():
 
 			var piece_size = Vector2(piece.TextureSize.x / divide_vec.x, piece.TextureSize.y / divide_vec.y)
 			var piece_offset = Vector2(piece_size.x * j, piece_size.y * i)
+			piece.grid_size = divide_vec
+			piece.index = Vector2(j, i)
 			piece.piece_size = piece_size
 			piece.piece_offset = piece_offset
-			piece.position = piece_offset + Vector2(j * 3, i * 3)
+			piece.position = piece_offset + Vector2(j * 20, i * 20)
 			piece.size = piece_size
 			piece_list[i].append(piece)
 

@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Piece/piece_sprite.gd" id="3_ngye2"]
 [ext_resource type="Script" path="res://Scripts/Piece/piece_height.gd" id="5_eesca"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y4sb6"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3r65l"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kvct4"]
 
@@ -41,7 +41,7 @@ shader_parameter/right_type = null
 shader_parameter/height_draw = null
 
 [node name="Piece" type="Button"]
-theme_override_styles/normal = SubResource("StyleBoxEmpty_y4sb6")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3r65l")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_kvct4")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_cbggm")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_pq60p")
