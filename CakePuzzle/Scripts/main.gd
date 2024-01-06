@@ -29,7 +29,7 @@ func _rand_pos(piece_size: Vector2) -> Vector2:
 
 	while (pos.x < 1000 - 150 and pos.x > 100 and pos.y < 600 - 100 and pos.y > 50) \
 	or (pos.x > 1000 - piece_size.x or pos.y > 600 - piece_size.y) \
-	or (pos.x > 1000 - 80 - piece_size.x and pos.y < 80):
+	or (pos.x < 80 and pos.y < 80):
 		pos.x = randf_range(0, 1000)
 		pos.y = randf_range(0, 600)
 	

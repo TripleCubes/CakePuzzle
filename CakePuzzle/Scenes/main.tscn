@@ -9,10 +9,11 @@ script = ExtResource("1_6k8ji")
 [node name="Pieces" type="Node2D" parent="."]
 
 [node name="ShuffleButton" type="TextureButton" parent="."]
-offset_left = 944.0
+offset_left = 8.0
 offset_top = 8.0
-offset_right = 994.0
+offset_right = 58.0
 offset_bottom = 58.0
+focus_mode = 0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("2_xt0nc")
 
